@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import plotly.express as px
 import os
 
 # Check if the file exists
@@ -29,7 +30,7 @@ else:
         st.error(f"Error reading the CSV file: {e}")
 
 # Header
-st.header("Car Advertisement Data Analysis")
+st.header("Car Advertisement Data Analysclis")
 
 # Histogram of Car Prices
 st.subheader("Distribution of Car Prices")
