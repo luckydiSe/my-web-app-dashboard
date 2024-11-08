@@ -40,7 +40,4 @@ To run this project on your local machine, follow these steps:
 
 5. **View the Application**: After running the command above, a URL will appear in the terminal. Open it in your browser to view and interact with the dashboard.
 
-## Dependencies
-Make sure to install dependencies by running:
-```bash
-pip install -r requirements.txt
+6. **Live App**: You can also access the live version of the app [here](https://my-web-app-dashboard.onrender.com/).
