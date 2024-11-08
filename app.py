@@ -18,19 +18,23 @@ else:
         # Handle missing values
         df.dropna(subset=['model_year', 'cylinders', 'odometer', 'paint_color'], inplace=True)
         df['is_4wd'] = df['is_4wd'].fillna(0)
-        
-        # Convert types
-        df['model_year'] = df['model_year'].astype(int)
-        df['is_4wd'] = df['is_4wd'].astype(int)
 
-        # Display data info after cleaning
-        st.write(df.info())
+        # Convert types
+        try:
+            df['model_year'] = df['model_year'].astype(int)
+            df['is_4wd'] = df['is_4wd'].astype(int)
+        except ValueError as e:
+            st.error(f"Error converting data types: {e}")
+
+        # Display cleaned DataFrame info
+        st.write("Cleaned DataFrame:")
+        st.dataframe(df)  # Display the DataFrame
 
     except Exception as e:
         st.error(f"Error reading the CSV file: {e}")
 
 # Header
-st.header("Car Advertisement Data Analysclis")
+st.header("Car Advertisement Data Analysis")
 
 # Histogram of Car Prices
 st.subheader("Distribution of Car Prices")
