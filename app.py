@@ -3,6 +3,9 @@ import pandas as pd
 import plotly.express as px
 import os
 
+# Set the port for Render deployment
+port = int(os.environ.get("PORT", 8501))
+
 # Check if the file exists
 file_path = os.path.join(os.path.dirname(__file__), 'vehicles_us.csv')
 st.write(f"File path: {file_path}")
