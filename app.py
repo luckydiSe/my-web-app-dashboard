@@ -5,9 +5,9 @@ import os
 if not os.path.exists('vehicles_us.csv'):
     raise FileNotFoundError("The file 'vehicles_us.csv' was not found. Please make sure it exists in the project directory.")
 
-
-# Load data
-df = pd.read_csv('vehicles_us.csv')
+# Construct the path to 'vehicles_us.csv' relative to the script's location
+file_path = os.path.join(os.path.dirname(__file__), 'vehicles_us.csv')
+df = pd.read_csv(file_path)
 
 # Header
 st.header("Car Advertisement Data Analysis")
