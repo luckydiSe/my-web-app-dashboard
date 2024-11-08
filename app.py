@@ -4,17 +4,17 @@ import plotly.express as px
 import os
 
 # Check if the file exists
-if not os.path.exists('vehicles_us.csv'):
-    raise FileNotFoundError("The file 'vehicles_us.csv' was not found. Please make sure it exists in the project directory.")
-
-# Construct the path to 'vehicles_us.csv' relative to the script's location
 file_path = os.path.join(os.path.dirname(__file__), 'vehicles_us.csv')
+if not os.path.exists(file_path):
+    st.error("The file 'vehicles_us.csv' was not found. Please make sure it exists in the project directory.")
+else:
+    try:
+        # Attempt to load the CSV file
+        df = pd.read_csv(file_path)
+        st.write("File loaded successfully.")
+    except Exception as e:
+        st.error(f"Error reading the CSV file: {e}")
 
-# Try reading the CSV file with UTF-8 encoding and handle errors
-try:
-    df = pd.read_csv(file_path, encoding='utf-8')
-except Exception as e:
-    st.error(f"Error reading the CSV file: {e}")
 
 # Header
 st.header("Car Advertisement Data Analysis")
