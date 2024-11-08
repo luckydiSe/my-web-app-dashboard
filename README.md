@@ -44,10 +44,3 @@ To run this project on your local machine, follow these steps:
 Make sure to install dependencies by running:
 ```bash
 pip install -r requirements.txt
-
-## Deployment Note
-
-This app is deployed on Render. To ensure compatibility with Render's environment, the Start Command was modified to:
-
-```bash
-streamlit run app.py --server.port $PORT
