@@ -1,6 +1,10 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import os
+if not os.path.exists('vehicles_us.csv'):
+    raise FileNotFoundError("The file 'vehicles_us.csv' was not found. Please make sure it exists in the project directory.")
+
 
 # Load data
 df = pd.read_csv('vehicles_us.csv')
