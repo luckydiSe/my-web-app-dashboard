@@ -20,41 +20,39 @@ else:
         df['is_4wd'] = df['is_4wd'].fillna(0)
 
         # Convert types
-        try:
-            df['model_year'] = df['model_year'].astype(int)
-            df['is_4wd'] = df['is_4wd'].astype(int)
-        except ValueError as e:
-            st.error(f"Error converting data types: {e}")
+        df['model_year'] = df['model_year'].astype(int)
+        df['is_4wd'] = df['is_4wd'].astype(int)
 
-        # Display cleaned DataFrame info
-        st.write("Cleaned DataFrame:")
-        st.dataframe(df)  # Display the DataFrame
+        # Check if DataFrame is empty after cleaning
+        if df.empty:
+            st.error("The DataFrame is empty after cleaning.")
+        else:
+            st.write(df.info())  # Show info for verification
+
+            # Histogram of Car Prices
+            st.header("Car Advertisement Data Analysis")
+            st.subheader("Distribution of Car Prices")
+            fig_price = px.histogram(df, x="price", nbins=50, title="Distribution of Car Prices")
+            fig_price.update_xaxes(range=[0, 100000])
+            st.plotly_chart(fig_price)
+
+            # Scatter Plot: Price vs. Days Listed with Adjustable Range
+            st.subheader("Price vs. Days Listed (Adjustable Range)")
+            show_full_range = st.checkbox("Show full price range")
+
+            # Create the scatter plot
+            fig1 = px.scatter(df, x='days_listed', y='price', title="Price vs. Days Listed",
+                              labels={'days_listed': 'Days Listed', 'price': 'Price ($)'})
+
+            # Update the y-axis range based on checkbox state
+            if show_full_range:
+                fig1.update_yaxes(range=[0, df['price'].max()])
+            else:
+                fig1.update_yaxes(range=[0, 100000])
+
+            # Display the scatter plot
+            st.plotly_chart(fig1)
 
     except Exception as e:
         st.error(f"Error reading the CSV file: {e}")
 
-# Header
-st.header("Car Advertisement Data Analysis")
-
-# Histogram of Car Prices
-st.subheader("Distribution of Car Prices")
-fig_price = px.histogram(df, x="price", nbins=50, title="Distribution of Car Prices")
-fig_price.update_xaxes(range=[0, 100000])
-st.plotly_chart(fig_price)
-
-# Scatter Plot: Price vs. Days Listed with Adjustable Range
-st.subheader("Price vs. Days Listed (Adjustable Range)")
-show_full_range = st.checkbox("Show full price range")
-
-# Create the scatter plot
-fig1 = px.scatter(df, x='days_listed', y='price', title="Price vs. Days Listed",
-                  labels={'days_listed': 'Days Listed', 'price': 'Price ($)'})
-
-# Update the y-axis range based on checkbox state
-if show_full_range:
-    fig1.update_yaxes(range=[0, df['price'].max()])
-else:
-    fig1.update_yaxes(range=[0, 100000])
-
-# Display the scatter plot
-st.plotly_chart(fig1)
