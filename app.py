@@ -2,12 +2,19 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import os
+
+# Check if the file exists
 if not os.path.exists('vehicles_us.csv'):
     raise FileNotFoundError("The file 'vehicles_us.csv' was not found. Please make sure it exists in the project directory.")
 
 # Construct the path to 'vehicles_us.csv' relative to the script's location
 file_path = os.path.join(os.path.dirname(__file__), 'vehicles_us.csv')
-df = pd.read_csv(file_path)
+
+# Try reading the CSV file with UTF-8 encoding and handle errors
+try:
+    df = pd.read_csv(file_path, encoding='utf-8')
+except Exception as e:
+    st.error(f"Error reading the CSV file: {e}")
 
 # Header
 st.header("Car Advertisement Data Analysis")
